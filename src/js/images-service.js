@@ -33,7 +33,7 @@ export default class ImagesApiServise {
     }
 
     this.incrementPage();
-    console.log(images.hits);
+    // console.log(images.hits);
 
     return images.hits;
   }

@@ -32,6 +32,14 @@ async function onLoadMoreBtnClick() {
 function createMarkup(images) {
   gallery.insertAdjacentHTML('beforeend', images);
   simpleGallery.refresh();
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
 
 function clearMarkup() {
