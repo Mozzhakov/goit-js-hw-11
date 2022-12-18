@@ -21,20 +21,19 @@ export default class ImagesApiServise {
       },
     });
 
-    refs.loadMoreBtn.classList.remove('hidden');
-
     let images = response.data;
 
     if (images.total === 0) {
-      Notify.failure(
+      return Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
-      refs.loadMoreBtn.classList.add('hidden');
     }
 
     if (images.hits.length === 0 && images.totalHits > 0) {
-      Notify.info("We're sorry, but you've reached the end of search results.");
       refs.loadMoreBtn.classList.add('hidden');
+      return Notify.info(
+        "We're sorry, but you've reached the end of search results."
+      );
     }
 
     if (images.total > 0 && this.page === 1) {
@@ -42,7 +41,10 @@ export default class ImagesApiServise {
     }
 
     this.incrementPage();
+
     console.log(images.hits);
+
+    refs.loadMoreBtn.classList.remove('hidden');
 
     return images.hits;
   }
