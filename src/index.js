@@ -1,7 +1,4 @@
 import refs from './js/refs';
-// const searchForm = document.querySelector('#search-form');
-// const loadMoreBtn = document.querySelector('.load-more');
-// const gallery = document.querySelector('.gallery');
 import ImagesApiServise from './js/images-service';
 import renderImages from './js/render-images';
 import SimpleLightbox from 'simplelightbox';
@@ -21,6 +18,7 @@ async function onFormSubmit(e) {
   try {
     const arrOfImages = await imagesApiService.fetchImages();
     createMarkup(renderImages(arrOfImages));
+
     const { height: cardHeight } = document
       .querySelector('.gallery')
       .firstElementChild.getBoundingClientRect();
@@ -40,6 +38,7 @@ async function onLoadMoreBtnClick() {
   try {
     const arrOfImages = await imagesApiService.fetchImages();
     createMarkup(renderImages(arrOfImages));
+
     const { height: cardHeight } = document
       .querySelector('.gallery')
       .firstElementChild.getBoundingClientRect();
@@ -62,4 +61,22 @@ function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
 
-// https://pixabay.com/api/?key=32125598-727b0dcec7c138f75a012e8ea&q=cat&page=1&perPage=40&image_type=photo&orientation=horizontal&safesearch=true
+refs.switcherBtn.addEventListener('click', () => {
+  const onEntry = entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && imagesApiService.searchQuery !== '') {
+        onLoadMoreBtnClick();
+      }
+    });
+  };
+
+  const options = {
+    rootMargin: '200px',
+  };
+
+  const observer = new IntersectionObserver(onEntry, options);
+
+  observer.observe(refs.scrollSwitcher);
+
+  refs.loadMoreBtn.classList.add('hidden');
+});

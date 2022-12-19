@@ -1,6 +1,7 @@
 import refs from './refs';
 import axios from 'axios';
 import { Notify } from 'notiflix';
+
 export default class ImagesApiServise {
   constructor() {
     this.searchQuery = '';
@@ -14,7 +15,7 @@ export default class ImagesApiServise {
         key: API_KEY,
         q: this.searchQuery,
         page: this.page,
-        perPage: 40,
+        per_page: 40,
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
