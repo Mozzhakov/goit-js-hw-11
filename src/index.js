@@ -3,6 +3,7 @@ import ImagesApiServise from './js/images-service';
 import renderImages from './js/render-images';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import { Notify } from 'notiflix';
 
 let simpleGallery = new SimpleLightbox('.gallery a', {});
 
@@ -49,6 +50,10 @@ async function onLoadMoreBtnClick() {
     });
   } catch (error) {
     console.log(error);
+    if (error.response.status === 400) {
+      refs.loadMoreBtn.classList.add('hidden');
+      Notify.info("We're sorry, but you've reached the end of search results.");
+    }
   }
 }
 
@@ -63,6 +68,7 @@ function clearMarkup() {
 
 refs.switcherBtn.addEventListener('click', () => {
   refs.loadMoreBtn.remove();
+  refs.switcherBtn.disabled = 'true';
   const onEntry = entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting && imagesApiService.searchQuery !== '') {
