@@ -62,6 +62,7 @@ function clearMarkup() {
 }
 
 refs.switcherBtn.addEventListener('click', () => {
+  refs.loadMoreBtn.remove();
   const onEntry = entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting && imagesApiService.searchQuery !== '') {
@@ -77,6 +78,4 @@ refs.switcherBtn.addEventListener('click', () => {
   const observer = new IntersectionObserver(onEntry, options);
 
   observer.observe(refs.scrollSwitcher);
-
-  refs.loadMoreBtn.classList.add('hidden');
 });

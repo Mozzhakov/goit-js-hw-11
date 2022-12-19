@@ -15,7 +15,7 @@ export default class ImagesApiServise {
         key: API_KEY,
         q: this.searchQuery,
         page: this.page,
-        per_page: 40,
+        per_page: 16,
         image_type: 'photo',
         orientation: 'horizontal',
         safesearch: true,
@@ -42,8 +42,6 @@ export default class ImagesApiServise {
     }
 
     this.incrementPage();
-
-    console.log(images.hits);
 
     refs.loadMoreBtn.classList.remove('hidden');
 
